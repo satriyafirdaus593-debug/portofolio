@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satriya Firdaus | Portfolio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-olive: #2D362E;
+      --bg-olive-light: #3E4A3D;
+      --mustard: #E6B84C;
+      --mustard-bright: #F2C963;
+      --mustard-dark: #9E7B28;
+      --mustard-glass: rgba(230, 184, 76, 0.18);
+      --cream: #F8F6F0;
+      --ink: #1C1F1C;
+      --ink-soft: rgba(28, 31, 28, 0.78);
+      --shadow-hud: 0 20px 45px rgba(0, 0, 0, 0.42);
+      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.25);
+      --ease: cubic-bezier(.25, .8, .25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-olive);
+      background-image: 
+        radial-gradient(circle at 50% 18%, var(--bg-olive-light), var(--bg-olive) 75%),
+        repeating-linear-gradient(135deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 40px, transparent 40px, transparent 110px);
+      background-attachment: fixed;
+      color: var(--cream);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Typography Utilities */
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+    .font-pixel {
+      font-family: 'Silkscreen', monospace;
+    }
+
+    /* Top HUD Notch Navigation */
+    .top-notch-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .top-notch {
+      background: var(--mustard);
+      color: var(--ink);
+      padding: 8px 32px 10px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      pointer-events: auto;
+      border: 2px solid var(--mustard-bright);
+      border-top: none;
+    }
+
+    .notch-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .notch-logo svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .notch-nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .notch-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: opacity 0.2s var(--ease), transform 0.2s;
+      position: relative;
+    }
+
+    .notch-nav a:hover {
+      opacity: 0.7;
+      transform: translateY(-1px);
+    }
+
+    /* Main Container HUD Shell */
+    .hud-shell {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+      position: relative;
+    }
+
+    /* SECTION 1: HERO & IDENTITY CARD */
+    .hero-card {
+      position: relative;
+      margin-top: 76px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(230,184,76,0.34), rgba(230,184,76,0.12));
+      border: 2px solid var(--mustard);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 68px 36px 48px;
+      box-shadow: var(--shadow-hud);
+      text-align: center;
+    }
+
+    /* Center Avatar Badge */
+    .avatar-wrapper {
+      position: absolute;
+      top: -68px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+    }
+
+    .avatar-badge {
+      width: 136px;
+      height: 136px;
+      border-radius: 50%;
+      background: var(--mustard);
+      border: 4px solid var(--bg-olive);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: idleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes idleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Outer curved arc and dot */
+    .avatar-arc {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      border: 2px dashed var(--mustard);
+      pointer-events: none;
+      animation: rotateArc 20s linear infinite;
+    }
+
+    @keyframes rotateArc {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .avatar-floating-dot {
+      position: absolute;
+      top: 10px;
+      right: -12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--mustard-bright);
+      box-shadow: 0 0 12px var(--mustard-bright);
+    }
+
+    /* Monogram Paperclip top-left */
+    .scrapbook-clip {
+      position: absolute;
+      top: -18px;
+      left: 28px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 15;
+      cursor: pointer;
+    }
+
+    .monogram-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 2px solid var(--mustard-bright);
+      color: var(--mustard-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: transform 0.3s var(--ease);
+    }
+
+    .scrapbook-clip:hover .monogram-badge {
+      transform: rotate(-12deg) scale(1.1);
+    }
+
+    /* Top Left Retro Loading Bar */
+    .hud-meta-left {
+      position: absolute;
+      top: 24px;
+      left: 28px;
+      text-align: left;
+    }
+
+    .pixel-loading-label {
+      font-size: 10px;
+      color: var(--mustard-bright);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .retro-progress {
+      display: flex;
+      gap: 3px;
+    }
+
+    .progress-segment {
+      width: 6px;
+      height: 10px;
+      background: rgba(248, 246, 240, 0.2);
+      border-radius: 1px;
+    }
+
+    .progress-segment.lit {
+      background: var(--cream);
+      box-shadow: 0 0 6px rgba(248, 246, 240, 0.7);
+    }
+
+    /* Top Right Greeting */
+    .hud-meta-right {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      text-align: right;
+      font-size: 11px;
+      line-height: 1.4;
+      background: rgba(28, 31, 28, 0.6);
+      border: 1px solid var(--mustard-glass);
+      padding: 6px 12px;
+      border-radius: 10px;
+      color: var(--cream);
+    }
+
+    /* Hero Heading */
+    .hero-title-container {
+      margin-top: 24px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 8.5vw, 84px);
+      line-height: 1;
+      color: var(--cream);
+      letter-spacing: -1px;
+    }
+
+    .hero-title .font-serif {
+      font-style: italic;
+    }
+
+    .hero-title .font-pixel {
+      color: var(--mustard-bright);
+      font-size: 0.9em;
+      margin-left: 2px;
+      text-shadow: 0 4px 18px rgba(242, 201, 99, 0.4);
+    }
+
+    .pixel-mascot-hero {
+      position: absolute;
+      top: -24px;
+      right: -28px;
+      animation: bobMascot 2.5s ease-in-out infinite;
+    }
+
+    @keyframes bobMascot {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(4deg); }
+    }
+
+    .hero-sub-tag {
+      font-size: 13px;
+      color: var(--mustard-bright);
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    .hero-bio {
+      max-width: 62ch;
+      margin: 20px auto 32px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #E6E8E4;
+      font-weight: 400;
+    }
+
+    /* Overlapping Bottom Pill */
+    .hero-pill-badge {
+      position: absolute;
+      bottom: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--mustard);
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 28px;
+      border-radius: 999px;
+      box-shadow: 0 5px 0 var(--mustard-dark), 0 10px 20px rgba(0,0,0,0.3);
+      white-space: nowrap;
+      letter-spacing: 0.4px;
+      z-index: 10;
+    }
+
+    /* SECTION 2: HUD CONNECTOR & EXPERIENCE */
+    .hud-connector-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin: 48px 0 28px;
+      position: relative;
+    }
+
+    .hud-bracket-line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--mustard), transparent);
+    }
+
+    .hud-connector-center {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hud-action-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--mustard);
+      border: 2px solid var(--mustard-bright);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.2s var(--ease);
+      position: relative;
+    }
+
+    .hud-action-btn:hover {
+      transform: translateY(-2px);
+      background: var(--mustard-bright);
+      box-shadow: 0 6px 16px rgba(242, 201, 99, 0.4);
+    }
+
+    .hud-action-btn:active {
+      transform: translateY(1px);
+    }
+
+    .center-circuit-emblem {
+      background: var(--cream);
+      color: var(--ink);
+      padding: 8px 18px;
+      border-radius: 12px;
+      border: 2px solid var(--mustard);
+      font-family: 'Silkscreen', monospace;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+
+    /* Toast Notification */
+    .toast-pixel {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--ink);
+      border: 2px solid var(--mustard-bright);
+      color: var(--mustard-bright);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-family: 'Silkscreen', monospace;
+      font-size: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast-pixel.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Experience Card Panel */
+    .experience-card {
+      background: var(--mustard);
+      color: var(--ink);
+      border-radius: 24px;
+      padding: 48px 24px 38px;
+      position: relative;
+      box-shadow: var(--shadow-hud);
+      margin-bottom: 48px;
+    }
+
+    .experience-pill-header {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cream);
+      color: var(--ink);
+      padding: 8px 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      white-space: nowrap;
+    }
+
+    .experience-pill-header .sub {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--ink-soft);
+      display: block;
+    }
+
+    .experience-pill-header .main {
+      font-size: 17px;
+      color: var(--ink);
+      letter-spacing: 1px;
+    }
+
+    /* Stickers */
+    .sticker-mascot {
+      position: absolute;
+      left: -18px;
+      top: 40px;
+      transform: rotate(-10deg);
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+      pointer-events: none;
+    }
+
+    .sticker-bubble {
+      position: absolute;
+      right: -16px;
+      top: 42px;
+      background: var(--cream);
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+      transform: rotate(5deg);
+    }
+
+    /* Interactive Experience Items */
+    .experience-list {
+      max-width: 720px;
+      margin: 16px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .exp-item {
+      background: rgba(255, 255, 255, 0.35);
+      border: 1.5px solid rgba(28, 31, 28, 0.15);
+      border-radius: 14px;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease);
+    }
+
+    .exp-item:hover {
+      background: rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .exp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .exp-title-wrap {
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .exp-org {
+      font-weight: 600;
+      opacity: 0.85;
+      font-size: 12.5px;
+    }
+
+    .exp-period {
+      font-family: 'Silkscreen', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      background: var(--ink);
+      color: var(--mustard-bright);
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .exp-toggle-icon {
+      font-size: 16px;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(28,31,28,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .exp-item.open .exp-toggle-icon {
+      transform: rotate(45deg);
+    }
+
+    .exp-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, margin-top 0.3s ease-out;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: rgba(28, 31, 28, 0.9);
+      border-top: 1px dashed rgba(28, 31, 28, 0.2);
+    }
+
+    .exp-item.open .exp-detail {
+      max-height: 120px;
+      margin-top: 10px;
+      padding-top: 8px;
+    }
+
+    /* SECTION 3: COVERFLOW PROJECT CAROUSEL */
+    .works-section {
+      margin: 56px 0;
+      position: relative;
+      text-align: center;
+    }
+
+    .works-frame-wrapper {
+      position: relative;
+      padding: 0 30px;
+    }
+
+    /* Bracket Arc Frame on sides */
+    .bracket-arc {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 130px;
+      font-family: 'Silkscreen', monospace;
+      color: var(--mustard);
+      opacity: 0.4;
+      user-select: none;
+      pointer-events: none;
+      line-height: 0;
+    }
+    .bracket-left { left: 0px; }
+    .bracket-right { right: 0px; }
+
+    .coverflow-stage {
+      height: 380px;
+      position: relative;
+      perspective: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .coverflow-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-card {
+      position: absolute;
+      width: 290px;
+      height: 320px;
+      background: #252D26;
+      border: 2px solid var(--mustard);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.45s var(--ease), opacity 0.45s var(--ease), filter 0.45s var(--ease), border-color 0.45s;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.6);
+      user-select: none;
+    }
+
+    .card-preview-art {
+      height: 150px;
+      background: #1B211C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 2px solid var(--mustard-dark);
+      padding: 12px;
+    }
+
+    .card-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      color: var(--mustard-bright);
+      letter-spacing: 0.5px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+
+    .card-tools {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .tool-badge {
+      font-size: 9.5px;
+      background: rgba(230,184,76,0.18);
+      color: var(--mustard-bright);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid rgba(230,184,76,0.3);
+    }
+
+    .card-click-hint {
+      font-size: 10px;
+      color: rgba(248,246,240,0.6);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 10px;
+    }
+
+    /* Coverflow Arrow Navigation Buttons */
+    .cf-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      background: var(--mustard);
+      color: var(--ink);
+      border: 2px solid var(--mustard-bright);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 25;
+      font-family: 'Silkscreen', monospace;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      transition: all 0.2s;
+    }
+
+    .cf-nav-btn:hover {
+      background: var(--mustard-bright);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .cf-prev { left: 12px; }
+    .cf-next { right: 12px; }
+
+    /* Section Footer Pill ("SPILL KARYA") */
+    .works-footer-pill {
+      display: inline-block;
+      margin-top: 18px;
+      background: rgba(28,31,28,0.92);
+      border: 2px solid var(--mustard);
+      padding: 10px 32px;
+      border-radius: 999px;
+      font-size: 16px;
+      color: var(--mustard-bright);
+      letter-spacing: 1px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    /* SECTION 4: EDUCATION & ACHIEVEMENTS */
+    .edu-achieve-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 42px;
+    }
+
+    .strip-card {
+      background: var(--mustard-glass);
+      border: 1.5px solid var(--mustard);
+      border-radius: 20px;
+      padding: 26px 24px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .strip-header {
+      font-size: 14px;
+      color: var(--mustard-bright);
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px dashed rgba(230, 184, 76, 0.35);
+      padding-bottom: 10px;
+    }
+
+    .strip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .strip-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .strip-item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .strip-item-sub {
+      font-size: 12.5px;
+      color: rgba(248,246,240,0.75);
+    }
+
+    .strip-item-year {
+      font-size: 11px;
+      color: var(--mustard);
+      font-family: 'Silkscreen', monospace;
+    }
+
+    /* SECTION 5: SOFT SKILLS & DOCK */
+    .skills-section {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .soft-skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .soft-pill {
+      background: rgba(45, 54, 46, 0.7);
+      border: 1.5px solid var(--mustard);
+      color: var(--cream);
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      transition: all 0.2s var(--ease);
+    }
+
+    .soft-pill:hover {
+      background: var(--mustard);
+      color: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    /* macOS-style Tool Dock */
+    .dock-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+      margin-top: 16px;
+    }
+
+    .dock-cutout-node {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.45);
+      border: 2px solid var(--mustard);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .dock-cutout-node svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--mustard);
+    }
+
+    .mac-dock {
+      background: rgba(248,246,240,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(230,184,76,0.45);
+      border-radius: 22px;
+      padding: 12px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+    }
+
+    .dock-icon-item {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+
+    .dock-icon-item svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .dock-icon-item:hover {
+      transform: scale(1.22) translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+
+    /* Tooltip */
+    .dock-tooltip {
+      position: absolute;
+      top: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: var(--mustard-bright);
+      border: 1px solid var(--mustard);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 10px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .dock-icon-item:hover .dock-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    /* SECTION 6: CONNECT BANNER & FOOTER */
+    .connect-card {
+      background: var(--mustard);
+      color: var(--ink);
+      border-radius: 24px;
+      padding: 38px 24px;
+      margin-top: 48px;
+      text-align: center;
+      box-shadow: var(--shadow-hud);
+      position: relative;
+    }
+
+    .connect-heading {
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--ink);
+    }
+
+    .connect-sub {
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 56ch;
+      margin: 10px auto 0;
+      font-weight: 500;
+      color: rgba(28, 31, 28, 0.88);
+    }
+
+    .connect-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn-connect {
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s var(--ease);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    .btn-email {
+      background: var(--ink);
+      color: var(--cream);
+      border: 2px solid var(--ink);
+    }
+
+    .btn-email:hover {
+      background: #2D362E;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .btn-linkedin {
+      background: var(--cream);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+    }
+
+    .btn-linkedin:hover {
+      background: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+
+    /* Footer text */
+    .portfolio-footer {
+      margin-top: 36px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(248, 246, 240, 0.65);
+      line-height: 1.6;
+    }
+
+    /* DETAIL MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(14, 18, 15, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 540px;
+      background: #252D26;
+      border: 2px solid var(--mustard);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+      position: relative;
+      transform: scale(0.92);
+      transition: transform 0.3s var(--ease);
+      color: var(--cream);
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--mustard);
+      color: var(--ink);
+      border: none;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .modal-badge {
+      font-size: 11px;
+      color: var(--mustard-bright);
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .modal-tools {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #E6E8E4;
+      margin-bottom: 24px;
+      background: rgba(0,0,0,0.25);
+      padding: 14px 16px;
+      border-radius: 12px;
+      border-left: 3px solid var(--mustard);
+    }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 768px) {
+      .top-notch {
+        padding: 6px 18px 8px;
+        gap: 16px;
+      }
+      .notch-nav {
+        gap: 12px;
+      }
+      .notch-nav a {
+        font-size: 11px;
+      }
+      .hero-card {
+        padding: 64px 20px 42px;
+      }
+      .hud-meta-left {
+        left: 16px;
+        top: 16px;
+      }
+      .hud-meta-right {
+        right: 16px;
+        top: 16px;
+        font-size: 10px;
+      }
+      .edu-achieve-grid {
+        grid-template-columns: 1fr;
+      }
+      .mac-dock {
+        flex-wrap: wrap;
+        max-width: 320px;
+      }
+      .dock-cutout-node {
+        display: none;
+      }
+      .bracket-arc {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .notch-nav {
+        display: none;
+      }
+      .hero-pill-badge {
+        font-size: 11px;
+        padding: 8px 18px;
+      }
+      .sticker-mascot, .sticker-bubble {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top HUD Header Notch Navigation -->
+  <header class="top-notch-wrap">
+    <div class="top-notch">
+      <a href="#about" class="notch-logo font-pixel">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <rect x="2" y="2" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="2"/>
+          <path d="M14 16h4M6 16h4M10 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        SF-2026
+      </a>
+      <nav class="notch-nav">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#works">Works</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Connect</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main HUD Shell -->
+  <main class="hud-shell">
+
+    <!-- ==========================================
+         SECTION 1: HERO & IDENTITY CARD
+         ========================================== -->
+    <section id="about" class="hero-card reveal">
+
+      <!-- Monogram Paperclip top-left -->
+      <div class="scrapbook-clip" title="Satriya Firdaus Initials">
+        <svg width="24" height="42" viewBox="0 0 24 42" fill="none" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));">
+          <!-- Metallic paperclip -->
+          <path d="M7 12V30C7 34 10 37 14 37C18 37 21 34 21 30V8C21 4 17 1 12 1C7 1 3 4 3 8V32" stroke="#E6B84C" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div class="monogram-badge font-pixel">SF</div>
+      </div>
+
+      <!-- Center Avatar Badge -->
+      <div class="avatar-wrapper">
+        <div class="avatar-arc"></div>
+        <div class="avatar-floating-dot"></div>
+        <div class="avatar-badge">
+          <!-- Stylized Custom Vector/Pixel Avatar Illustration of Satriya -->
+          <svg viewBox="0 0 120 120" width="118" height="118">
+            <defs>
+              <linearGradient id="skin" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFD4A3"/>
+                <stop offset="100%" stop-color="#EAA672"/>
+              </linearGradient>
+              <linearGradient id="jacket" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2D362E"/>
+                <stop offset="100%" stop-color="#1A201A"/>
+              </linearGradient>
+            </defs>
+            <!-- Background inside avatar -->
+            <rect width="120" height="120" fill="#E6B84C"/>
+            <!-- Circuit background lines -->
+            <path d="M10 20 H30 V40 M90 20 H70 V40 M20 90 H40 V75 M100 90 H80 V75" stroke="#9E7B28" stroke-width="1.5" fill="none"/>
+            <!-- Body / Tech-casual Jacket -->
+            <path d="M22 120 C22 96 40 86 60 86 C80 86 98 96 98 120 Z" fill="url(#jacket)"/>
+            <!-- Inner Shirt (Cream) -->
+            <path d="M50 86 L60 102 L70 86 Z" fill="#F8F6F0"/>
+            <!-- Jacket Collar Lines -->
+            <path d="M42 88 L52 110 M78 88 L68 110" stroke="#E6B84C" stroke-width="2"/>
+            <!-- Neck -->
+            <rect x="52" y="74" width="16" height="16" fill="#EAA672" rx="3"/>
+            <!-- Head -->
+            <path d="M38 52 C38 34 50 28 60 28 C70 28 82 34 82 52 C82 68 72 76 60 76 C48 76 38 68 38 52 Z" fill="url(#skin)"/>
+            <!-- Modern Hair Cut -->
+            <path d="M36 46 C35 32 45 20 60 20 C72 20 84 27 84 42 C81 37 74 34 68 35 C60 36 52 32 45 36 C40 39 38 43 36 46 Z" fill="#1C1F1C"/>
+            <!-- Glasses -->
+            <rect x="42" y="46" width="14" height="10" rx="3" fill="none" stroke="#1C1F1C" stroke-width="2.2"/>
+            <rect x="64" y="46" width="14" height="10" rx="3" fill="none" stroke="#1C1F1C" stroke-width="2.2"/>
+            <path d="M56 50 H64" stroke="#1C1F1C" stroke-width="2"/>
+            <!-- Eyes inside glasses -->
+            <circle cx="49" cy="51" r="1.8" fill="#1C1F1C"/>
+            <circle cx="71" cy="51" r="1.8" fill="#1C1F1C"/>
+            <!-- Friendly Smile -->
+            <path d="M54 64 Q60 69 66 64" stroke="#874720" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Top Left Retro Loading Bar -->
+      <div class="hud-meta-left">
+        <div class="pixel-loading-label font-pixel">LOADING</div>
+        <div class="retro-progress" id="loadingBar">
+          <div class="progress-segment lit"></div>
+          <div class="progress-segment lit"></div>
+          <div class="progress-segment lit"></div>
+          <div class="progress-segment lit"></div>
+          <div class="progress-segment lit"></div>
+          <div class="progress-segment lit"></div>
+          <div class="progress-segment lit"></div>
+          <div class="progress-segment"></div>
+          <div class="progress-segment"></div>
+          <div class="progress-segment"></div>
+        </div>
+      </div>
+
+      <!-- Top Right Greeting -->
+      <div class="hud-meta-right">
+        Hi, I'm <strong>Satriya</strong> 👋<br>
+        <span style="color: var(--mustard-bright);">Salam kenal!</span>
+      </div>
+
+      <!-- Centered Hero Title -->
+      <div class="hero-title-container">
+        <!-- Floating 8-bit Robot Mascot -->
+        <div class="pixel-mascot-hero">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+            <!-- Cap -->
+            <path d="M6 5 L12 2 L18 5 L12 7 Z" fill="#F2C963"/>
+            <circle cx="12" cy="2" r="1.5" fill="#E6B84C"/>
+            <!-- Face -->
+            <rect x="4" y="7" width="16" height="12" rx="3" fill="#1C1F1C" stroke="#F2C963" stroke-width="1.5"/>
+            <!-- Pixel Eyes -->
+            <rect x="7" y="10" width="3" height="3" fill="#00E5FF"/>
+            <rect x="14" y="10" width="3" height="3" fill="#00E5FF"/>
+            <!-- Smile -->
+            <path d="M9 15 H15" stroke="#F2C963" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h1 class="hero-title">
+          <span class="font-serif">Port</span><span class="font-pixel">folio</span>
+        </h1>
+        <div class="hero-sub-tag font-pixel">IoT & DESIGN 2026 ←</div>
+      </div>
+
+      <!-- Bio Copy -->
+      <p class="hero-bio">
+        Mahasiswa S1 Teknik Informatika Institut Teknologi PLN dengan minat mendalam dalam bidang
+        Internet of Things (IoT), desain visual, dan public relations. Terampil merancang sistem
+        berbasis IoT menggunakan Fritzing, Kodular, dan Firebase serta mengolah media visual dengan
+        Figma, Canva, dan CapCut.
+      </p>
+
+      <!-- Bottom Overlapping Mustard Pill -->
+      <div class="hero-pill-badge">
+        Satriya Firdaus | IoT & Visual Designer
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 2: HUD CONNECTOR & EXPERIENCE PANEL
+         ========================================== -->
+    <div class="hud-connector-bar reveal">
+      <div class="hud-bracket-line"></div>
+      <div class="hud-connector-center">
+        <!-- Left: Heart Button -->
+        <button class="hud-action-btn" id="btnRespect" title="Give Respect!">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </button>
+
+        <!-- Center Circuit Emblem -->
+        <div class="center-circuit-emblem">
+          <span>&lt;/&gt;</span>
+          <span style="font-size: 10px; color: var(--mustard-dark);">CIRCUIT.SYS</span>
+        </div>
+
+        <!-- Right: Share / Connect Button -->
+        <a href="#contact" class="hud-action-btn" title="Contact Satriya">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hud-bracket-line"></div>
+    </div>
+
+    <!-- Experience Panel -->
+    <section id="experience" class="experience-card reveal">
+
+      <!-- Overlapping Header Pill -->
+      <div class="experience-pill-header">
+        <span class="sub">Spill pengalaman organisasi & kepanitiaan</span>
+        <span class="main font-pixel">EXPERIENCE & ROLES</span>
+      </div>
+
+      <!-- Edge Stickers -->
+      <div class="sticker-mascot">
+        <svg width="44" height="44" viewBox="0 0 32 32">
+          <rect x="4" y="6" width="24" height="20" rx="4" fill="#1C1F1C" stroke="#F8F6F0" stroke-width="2"/>
+          <circle cx="11" cy="14" r="3" fill="#E6B84C"/>
+          <circle cx="21" cy="14" r="3" fill="#E6B84C"/>
+          <rect x="10" y="20" width="12" height="2" fill="#F8F6F0"/>
+          <path d="M12 2 L16 6 L20 2" stroke="#E6B84C" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="sticker-bubble font-pixel">
+        IT PLN × UB
+      </div>
+
+      <!-- Experience Accordion List -->
+      <div class="experience-list" id="experienceContainer">
+        <!-- Rendered dynamically by script for complete data fidelity -->
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 3: COVERFLOW PROJECT CAROUSEL
+         ========================================== -->
+    <section id="works" class="works-section reveal">
+      
+      <div class="works-frame-wrapper">
+        <span class="bracket-arc bracket-left">(</span>
+        <span class="bracket-arc bracket-right">)</span>
+
+        <!-- Coverflow Navigation Buttons -->
+        <button class="cf-nav-btn cf-prev" id="cfPrev" aria-label="Previous Project">&lt;</button>
+        <button class="cf-nav-btn cf-next" id="cfNext" aria-label="Next Project">&gt;</button>
+
+        <!-- 3D Stage -->
+        <div class="coverflow-stage" id="cfStage">
+          <div class="coverflow-track" id="cfTrack">
+            <!-- Cards rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Footer Pill -->
+      <div class="works-footer-pill font-pixel">
+        SPILL KARYA
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 4: EDUCATION & ACHIEVEMENTS STRIP
+         ========================================== -->
+    <section id="credentials" class="edu-achieve-grid reveal">
+      
+      <!-- Left Card: Education -->
+      <div class="strip-card">
+        <div class="strip-header font-pixel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+          </svg>
+          ✦ EDUCATION
+        </div>
+        <div class="strip-list">
+          <div class="strip-item">
+            <div class="strip-item-title">Institut Teknologi PLN</div>
+            <div class="strip-item-sub">S1 Teknik Informatika</div>
+            <div class="strip-item-year">2026 – Sekarang</div>
+          </div>
+          <div class="strip-item">
+            <div class="strip-item-title">Universitas Brawijaya</div>
+            <div class="strip-item-sub">S1 Teknik Elektro</div>
+            <div class="strip-item-year">2024 – 2026</div>
+          </div>
+          <div class="strip-item">
+            <div class="strip-item-title">SMAS Muhammadiyah 2 Surabaya</div>
+            <div class="strip-item-sub">MIPA</div>
+            <div class="strip-item-year">2021 – 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Card: Achievements -->
+      <div class="strip-card">
+        <div class="strip-header font-pixel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+          </svg>
+          ✦ ACHIEVEMENTS
+        </div>
+        <div class="strip-list">
+          <div class="strip-item">
+            <div class="strip-item-title">Medali Perunggu Bidang Kimia</div>
+            <div class="strip-item-sub">Olimpiade Sains Airlangga (OSA)</div>
+            <div class="strip-item-year">2024</div>
+          </div>
+          <div class="strip-item">
+            <div class="strip-item-title">Peraih Diploma Perunggu (Mixed Youth Choir)</div>
+            <div class="strip-item-sub">7th FESPA Universitas Surabaya</div>
+            <div class="strip-item-year">2022</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 5: SOFT SKILLS & macOS-STYLE TOOL DOCK
+         ========================================== -->
+    <section id="skills" class="skills-section reveal">
+      
+      <!-- Soft Skills Badges -->
+      <div class="soft-skills-wrap">
+        <span class="soft-pill">Creativity & Innovation</span>
+        <span class="soft-pill">Analytical Skills</span>
+        <span class="soft-pill">Critical Thinking</span>
+        <span class="soft-pill">Teamwork</span>
+        <span class="soft-pill">Adaptive & Proactive</span>
+        <span class="soft-pill">Discipline & Responsibility</span>
+      </div>
+
+      <!-- Bottom Tool Dock -->
+      <div class="dock-wrapper">
+        <!-- Far Left HUD Node -->
+        <div class="dock-cutout-node">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        </div>
+
+        <!-- Frosted Center Dock Bar -->
+        <div class="mac-dock" id="toolDock">
+          <!-- 8 Hard Skills Custom Crisp SVGs rendered by JS -->
+        </div>
+
+        <!-- Far Right HUD Node -->
+        <div class="dock-cutout-node">
+          <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 6: CONNECT BANNER & FOOTER
+         ========================================== -->
+    <section id="contact" class="connect-card reveal">
+      <h2 class="connect-heading font-pixel">LET'S COLLABORATE!</h2>
+      <p class="connect-sub">
+        Terbuka untuk kolaborasi proyek IoT, desain visual, manajemen media sosial, dan kepanitiaan.
+      </p>
+
+      <div class="connect-actions">
+        <!-- Email -->
+        <a href="mailto:satriyafirdaus593@gmail.com" class="btn-connect btn-email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+          satriyafirdaus593@gmail.com
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/satriya-firdaus-3ab174370" target="_blank" rel="noopener noreferrer" class="btn-connect btn-linkedin">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+          </svg>
+          LinkedIn Profile ↗
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="portfolio-footer">
+      <p>© 2026 Satriya Firdaus · Duri Kosambi, Jakarta Barat · Retro-HUD Portfolio</p>
+    </footer>
+
+  </main>
+
+  <!-- Project Detail Modal -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="modalClose" aria-label="Close modal">×</button>
+      <div class="modal-badge font-pixel" id="modalBadge">IOT & EDUCATION · 2025</div>
+      <h3 class="modal-title" id="modalTitle">Instalasi Hardware & Edukasi IoT</h3>
+      <div class="modal-tools" id="modalTools"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <button class="btn-connect btn-email" style="width: 100%; justify-content: center;" onclick="closeModal()">
+        Tutup Detail (Esc)
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Toast -->
+  <div class="toast-pixel" id="toastMsg">
+    <span>★</span> +1 Respect Recorded!
+  </div>
+
+  <!-- ==========================================
+       EMBEDDED PORTFOLIO DATA & SCRIPT
+       ========================================== -->
+  <script>
+    const PORTFOLIO_DATA = {
+      experiences: [
+        {
+          role: "PIC MEDIKRAF Kelompok 6 Mahasiswa Teknik Mengabdi (MTM)",
+          org: "Fakultas Teknik UB",
+          period: "2026",
+          detail: "Memimpin konsep publikasi, dokumentasi, branding visual, dan konten edukatif program pengabdian masyarakat desa binaan."
+        },
+        {
+          role: "Anggota Divisi MEDIKRAF Laboratorium Internet of Things (IoT)",
+          org: "Teknik Elektro UB",
+          period: "2026",
+          detail: "Memproduksi aset visual Instagram resmi Lab IoT serta merancang desain grafis jaket resmi asisten laboratorium."
+        },
+        {
+          role: "Anggota Sub-divisi Sosial Media MEDIKRAF HME",
+          org: "Himpunan Mahasiswa Teknik Elektro UB",
+          period: "2026",
+          detail: "Menyusun content planning, menganalisis tren digital untuk meningkatkan reach, dan mengemas informasi teknik bagi publik."
+        },
+        {
+          role: "Anggota Divisi PDD Kepanitiaan KENDALI",
+          org: "Teknik Elektro UB",
+          period: "2026",
+          detail: "Memproduksi konten harian Instagram Story serta mendokumentasikan rangkaian acara secara real-time."
+        },
+        {
+          role: "Anggota Sub-divisi Desain MEDIKRAF HME",
+          org: "Himpunan Mahasiswa Teknik Elektro UB",
+          period: "2025 – 2026",
+          detail: "Merancang media visual branding organisasi dan menyederhanakan informasi teknik yang rumit menjadi konten visual informatif."
+        },
+        {
+          role: "PIC Sub-divisi Desain PDD PONSEL 2025",
+          org: "Pekan Olahraga dan Seni Teknik Elektro UB",
+          period: "2025",
+          detail: "Mengkoordinasikan tim desain dan quality control seluruh kebutuhan visual (banner, feed Instagram, ID card) bertema olahraga & seni."
+        },
+        {
+          role: "Pemateri Internet of Things (IoT) — PENGMAS",
+          org: "Teknik Elektro UB di SMAN 4 Malang",
+          period: "2025",
+          detail: "Merangkai instalasi hardware alat peraga IoT dan membawakan materi presentasi edukasi interaktif untuk siswa SMA."
+        },
+        {
+          role: "Anggota Divisi Acara SMAMDA EDUCOMM",
+          org: "SMAS Muhammadiyah 2 Surabaya",
+          period: "2023",
+          detail: "Merancang alur kegiatan, penjadwalan lomba, rundown acara, serta koordinasi peserta dan juri."
+        },
+        {
+          role: "Pendamping Kelompok (PINGPOK) FORTASI",
+          org: "SMAS Muhammadiyah 2 Surabaya",
+          period: "2022",
+          detail: "Mendampingi siswa baru selama masa orientasi serta menjadi penghubung komunikasi antara panitia inti dan peserta."
+        }
+      ],
+      projects: [
+        {
+          id: 1,
+          title: "Instalasi Hardware & Edukasi IoT",
+          tag: "IOT & EDUCATION",
+          period: "2025",
+          tools: ["Fritzing", "Firebase", "IoT Hardware"],
+          desc: "Merangkai, menguji, dan menyiapkan instalasi perangkat keras IoT sebagai alat peraga utama simulasi praktik bagi siswa SMAN 4 Malang.",
+          accent: "#B82025",
+          icon: "hardware"
+        },
+        {
+          id: 2,
+          title: "Apparel & Branding Lab IoT UB",
+          tag: "BRAND & APPAREL",
+          period: "2026",
+          tools: ["Figma", "Canva"],
+          desc: "Merancang konsep dan desain grafis jaket resmi asisten Laboratorium IoT UB serta aset konten Instagram resmi laboratorium.",
+          accent: "#00C4CC",
+          icon: "design"
+        },
+        {
+          id: 3,
+          title: "Identitas Visual PONSEL 2025",
+          tag: "EVENT DESIGN",
+          period: "2025",
+          tools: ["Figma", "Canva", "CapCut"],
+          desc: "Memimpin sub-divisi desain untuk memproduksi banner, feed Instagram, dan ID card Pekan Olahraga & Seni Teknik Elektro UB.",
+          accent: "#E6B84C",
+          icon: "event"
+        },
+        {
+          id: 4,
+          title: "Kampanye Digital HME & MTM 2026",
+          tag: "SOCIAL MEDIA & PR",
+          period: "2026",
+          tools: ["Canva", "CapCut", "Figma"],
+          desc: "Mengelola strategi content planning, penyederhanaan informasi teknik bagi publik, dan dokumentasi lapangan desa binaan.",
+          accent: "#673AB7",
+          icon: "social"
+        },
+        {
+          id: 5,
+          title: "Prototipe Sistem IoT & Aplikasi",
+          tag: "IOT SYSTEM",
+          period: "2025–2026",
+          tools: ["Fritzing", "Kodular", "Firebase", "Autodesk Fusion"],
+          desc: "Perancangan skematik rangkaian mikrokontroler, pemodelan 3D CAD, dan integrasi aplikasi mobile dengan database real-time.",
+          accent: "#FFA000",
+          icon: "system"
+        }
+      ],
+      dockTools: [
+        { name: "Figma", role: "UI & Graphic Design", color: "#1E1E1E", svg: '<path d="M12 2a4 4 0 0 0-4 4 4 4 0 0 0 4 4h4V2h-4zm0 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4v-4h-4zm0 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4v-4h-4z" fill="#0ACF83"/><path d="M20 10a4 4 0 1 0 0-8h-4v8h4zm-4 4h4a4 4 0 1 1-4 4v-4z" fill="#F24E1E"/>' },
+        { name: "Canva", role: "Visual Content", color: "#00C4CC", svg: '<circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M8 12c1-3 4-3 5-1s3 4 5 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>' },
+        { name: "CapCut", role: "Video Editing", color: "#111111", svg: '<rect x="4" y="6" width="16" height="12" rx="2" fill="none" stroke="#fff" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="#fff"/>' },
+        { name: "Fritzing", role: "IoT Schematic", color: "#B82025", svg: '<rect x="4" y="4" width="16" height="16" rx="3" fill="none" stroke="#fff" stroke-width="2"/><circle cx="8" cy="8" r="2" fill="#fff"/><circle cx="16" cy="16" r="2" fill="#fff"/><path d="M8 8l8 8" stroke="#fff" stroke-width="2"/>' },
+        { name: "Kodular", role: "Mobile App Builder", color: "#673AB7", svg: '<path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="none" stroke="#fff" stroke-width="2"/><path d="M8 8v8l8-4-8-4z" fill="#fff"/>' },
+        { name: "Firebase", role: "IoT Cloud & DB", color: "#FFA000", svg: '<path d="M4 17l2-13 4 7-3 3 7-10 6 13-16 0z" fill="#FFCA28"/><path d="M4 17l12 0-3-4-9 4z" fill="#FFA000"/>' },
+        { name: "Autodesk Fusion", role: "3D CAD Modeling", color: "#FF6B00", svg: '<path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.5l6.5 3.6-6.5 3.6-6.5-3.6L12 4.5zM5 8.7l6 3.3v7.3l-6-3.3V8.7zm14 7.3l-6 3.3V12l6-3.3v7.3z" fill="#fff"/>' },
+        { name: "Microsoft Office", role: "Docs & Presentation", color: "#D83B01", svg: '<rect x="4" y="4" width="7" height="7" fill="#F25022"/><rect x="13" y="4" width="7" height="7" fill="#7FBA00"/><rect x="4" y="13" width="7" height="7" fill="#00A4EF"/><rect x="13" y="13" width="7" height="7" fill="#FFB900"/>' }
+      ]
+    };
+
+    // Render Experience List
+    const expContainer = document.getElementById('experienceContainer');
+    PORTFOLIO_DATA.experiences.forEach((item, index) => {
+      const expDiv = document.createElement('div');
+      expDiv.className = 'exp-item';
+      expDiv.innerHTML = `
+        <div class="exp-header">
+          <div class="exp-title-wrap">
+            <span>${item.role}</span> — <span class="exp-org">${item.org}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="exp-period">${item.period}</span>
+            <div class="exp-toggle-icon">+</div>
+          </div>
+        </div>
+        <div class="exp-detail">
+          ${item.detail}
+        </div>
+      `;
+      expDiv.addEventListener('click', () => {
+        expDiv.classList.toggle('open');
+      });
+      expContainer.appendChild(expDiv);
+    });
+
+    // Render macOS Dock Icons
+    const dockContainer = document.getElementById('toolDock');
+    PORTFOLIO_DATA.dockTools.forEach(tool => {
+      const iconWrap = document.createElement('div');
+      iconWrap.className = 'dock-icon-item';
+      iconWrap.style.background = tool.color;
+      iconWrap.innerHTML = `
+        <span class="dock-tooltip font-pixel">${tool.name} · ${tool.role}</span>
+        <svg viewBox="0 0 24 24">${tool.svg}</svg>
+      `;
+      dockContainer.appendChild(iconWrap);
+    });
+
+    // 3D Coverflow Implementation
+    let activeIndex = 0;
+    const cfTrack = document.getElementById('cfTrack');
+    const totalProjects = PORTFOLIO_DATA.projects.length;
+
+    function getProjectArtSVG(iconType, accent) {
+      if (iconType === 'hardware') {
+        return `<svg viewBox="0 0 100 80" width="100%" height="100%">
+          <rect x="20" y="20" width="60" height="40" rx="4" fill="#2E3830" stroke="${accent}" stroke-width="2"/>
+          <circle cx="35" cy="40" r="6" fill="${accent}"/>
+          <circle cx="50" cy="40" r="4" fill="#F2C963"/>
+          <circle cx="65" cy="40" r="4" fill="#00E5FF"/>
+          <path d="M20 30 H10 M20 40 H10 M20 50 H10 M80 30 H90 M80 40 H90 M80 50 H90" stroke="#F8F6F0" stroke-width="2"/>
+        </svg>`;
+      } else if (iconType === 'design') {
+        return `<svg viewBox="0 0 100 80" width="100%" height="100%">
+          <path d="M30 25 C30 25 50 15 70 25 C70 35 60 45 50 45 C40 45 30 35 30 25 Z" fill="${accent}" opacity="0.8"/>
+          <rect x="35" y="30" width="30" height="36" rx="4" fill="#252D26" stroke="#F8F6F0" stroke-width="1.5"/>
+          <circle cx="50" cy="48" r="6" fill="#F2C963"/>
+        </svg>`;
+      } else if (iconType === 'event') {
+        return `<svg viewBox="0 0 100 80" width="100%" height="100%">
+          <polygon points="50,15 62,38 88,38 67,54 75,78 50,62 25,78 33,54 12,38 38,38" fill="none" stroke="${accent}" stroke-width="2"/>
+          <circle cx="50" cy="45" r="8" fill="#F2C963"/>
+        </svg>`;
+      } else if (iconType === 'social') {
+        return `<svg viewBox="0 0 100 80" width="100%" height="100%">
+          <rect x="25" y="16" width="50" height="48" rx="8" fill="#1C1F1C" stroke="${accent}" stroke-width="2"/>
+          <circle cx="50" cy="40" r="12" fill="none" stroke="#F2C963" stroke-width="2"/>
+          <circle cx="65" cy="26" r="3" fill="#F8F6F0"/>
+        </svg>`;
+      } else {
+        return `<svg viewBox="0 0 100 80" width="100%" height="100%">
+          <rect x="18" y="24" width="30" height="32" rx="4" fill="#252D26" stroke="#F2C963" stroke-width="1.5"/>
+          <rect x="52" y="24" width="30" height="32" rx="4" fill="#252D26" stroke="${accent}" stroke-width="1.5"/>
+          <path d="M48 40 H52" stroke="#F8F6F0" stroke-width="2"/>
+          <circle cx="33" cy="40" r="4" fill="#00E5FF"/>
+          <circle cx="67" cy="40" r="4" fill="#F2C963"/>
+        </svg>`;
+      }
+    }
+
+    // Build Cards
+    PORTFOLIO_DATA.projects.forEach((proj, idx) => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.id = `cfCard-${idx}`;
+      card.innerHTML = `
+        <div class="card-preview-art">
+          ${getProjectArtSVG(proj.icon, proj.accent)}
+        </div>
+        <div class="card-content">
+          <div>
+            <div class="card-tag font-pixel">${proj.tag} · ${proj.period}</div>
+            <h4 class="card-title">${proj.title}</h4>
+            <div class="card-tools">
+              ${proj.tools.map(t => `<span class="tool-badge font-pixel">${t}</span>`).join('')}
+            </div>
+          </div>
+          <div class="card-click-hint font-pixel">
+            <span>[+] KLIK UNTUK DETAIL</span>
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        if (activeIndex === idx) {
+          openModal(proj);
+        } else {
+          activeIndex = idx;
+          updateCoverflow();
+        }
+      });
+      cfTrack.appendChild(card);
+    });
+
+    function updateCoverflow() {
+      const isMobile = window.innerWidth <= 640;
+      const stepX = isMobile ? 85 : 120;
+      const farStepX = isMobile ? 150 : 215;
+
+      PORTFOLIO_DATA.projects.forEach((_, idx) => {
+        const card = document.getElementById(`cfCard-${idx}`);
+        const offset = idx - activeIndex;
+
+        if (offset === 0) {
+          // Center Active
+          card.style.transform = `translateX(0px) scale(1) rotateY(0deg)`;
+          card.style.zIndex = 10;
+          card.style.filter = 'brightness(1)';
+          card.style.borderColor = 'var(--mustard-bright)';
+          card.style.opacity = '1';
+        } else if (offset === -1) {
+          card.style.transform = `translateX(-${stepX}px) scale(0.86) rotateY(10deg)`;
+          card.style.zIndex = 7;
+          card.style.filter = 'brightness(0.72)';
+          card.style.borderColor = 'var(--mustard)';
+          card.style.opacity = '0.9';
+        } else if (offset === 1) {
+          card.style.transform = `translateX(${stepX}px) scale(0.86) rotateY(-10deg)`;
+          card.style.zIndex = 7;
+          card.style.filter = 'brightness(0.72)';
+          card.style.borderColor = 'var(--mustard)';
+          card.style.opacity = '0.9';
+        } else if (offset < -1) {
+          card.style.transform = `translateX(-${farStepX}px) scale(0.74) rotateY(16deg)`;
+          card.style.zIndex = 4;
+          card.style.filter = 'brightness(0.48)';
+          card.style.borderColor = 'var(--mustard-dark)';
+          card.style.opacity = '0.6';
+        } else if (offset > 1) {
+          card.style.transform = `translateX(${farStepX}px) scale(0.74) rotateY(-16deg)`;
+          card.style.zIndex = 4;
+          card.style.filter = 'brightness(0.48)';
+          card.style.borderColor = 'var(--mustard-dark)';
+          card.style.opacity = '0.6';
+        }
+      });
+    }
+
+    document.getElementById('cfPrev').addEventListener('click', () => {
+      activeIndex = Math.max(0, activeIndex - 1);
+      updateCoverflow();
+    });
+
+    document.getElementById('cfNext').addEventListener('click', () => {
+      activeIndex = Math.min(totalProjects - 1, activeIndex + 1);
+      updateCoverflow();
+    });
+
+    window.addEventListener('resize', updateCoverflow);
+    updateCoverflow();
+
+    // Keyboard navigation for Coverflow
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        activeIndex = Math.max(0, activeIndex - 1);
+        updateCoverflow();
+      } else if (e.key === 'ArrowRight') {
+        activeIndex = Math.min(totalProjects - 1, activeIndex + 1);
+        updateCoverflow();
+      } else if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Touch Swipe Support
+    let touchStartX = 0;
+    const cfStage = document.getElementById('cfStage');
+    cfStage.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    cfStage.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].screenX - touchStartX;
+      if (diff > 45) {
+        activeIndex = Math.max(0, activeIndex - 1);
+        updateCoverflow();
+      } else if (diff < -45) {
+        activeIndex = Math.min(totalProjects - 1, activeIndex + 1);
+        updateCoverflow();
+      }
+    }, { passive: true });
+
+    // Modal Control
+    const modal = document.getElementById('projectModal');
+    const modalBadge = document.getElementById('modalBadge');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalTools = document.getElementById('modalTools');
+    const modalDesc = document.getElementById('modalDesc');
+
+    function openModal(proj) {
+      modalBadge.textContent = `${proj.tag} · ${proj.period}`;
+      modalTitle.textContent = proj.title;
+      modalDesc.textContent = proj.desc;
+      modalTools.innerHTML = proj.tools.map(t => `<span class="tool-badge font-pixel">${t}</span>`).join('');
+      modal.classList.add('open');
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Heart Respect Toast
+    const toast = document.getElementById('toastMsg');
+    let toastTimer;
+    document.getElementById('btnRespect').addEventListener('click', () => {
+      clearTimeout(toastTimer);
+      toast.classList.add('show');
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2400);
+    });
+
+    // Sequential Loading Bar Animation
+    const segs = document.querySelectorAll('.progress-segment');
+    segs.forEach((seg, i) => {
+      setTimeout(() => {
+        if (i < 7) {
+          seg.classList.add('lit');
+        }
+      }, i * 140);
+    });
+
+    // Scroll Reveal Observer
+    const revealElems = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.12 });
+    revealElems.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

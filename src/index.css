@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-olive: #2D362E;
+  --color-olive-light: #3E4A3D;
+  --color-mustard: #E6B84C;
+  --color-mustard-bright: #F2C963;
+  --color-mustard-dark: #9E7B28;
+  --color-cream: #F8F6F0;
+  --color-ink: #1C1F1C;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-pixel: "Silkscreen", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: #2D362E;
+    background-image:
+      radial-gradient(circle at 50% 18%, #3E4A3D, #2D362E 75%),
+      repeating-linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.12) 0px,
+        rgba(0, 0, 0, 0.12) 40px,
+        transparent 40px,
+        transparent 110px
+      );
+    background-attachment: fixed;
+    color: #F8F6F0;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+}
+
+@keyframes idleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes rotateArc {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bobMascot {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(4deg);
+  }
+}
+
+.animate-idle-float {
+  animation: idleFloat 4s ease-in-out infinite;
+}
+
+.animate-rotate-arc {
+  animation: rotateArc 20s linear infinite;
+}
+
+.animate-bob-mascot {
+  animation: bobMascot 2.5s ease-in-out infinite;
+}
+
+.motion-paused .animate-idle-float,
+.motion-paused .animate-rotate-arc,
+.motion-paused .animate-bob-mascot {
+  animation-play-state: paused !important;
+}
+
+.hud-shadow {
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.42);
+}
+
+.hero-pill-shadow {
+  box-shadow: 0 5px 0 #9E7B28, 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-pill-shadow:active {
+  box-shadow: 0 1px 0 #9E7B28, 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-idle-float,
+  .animate-rotate-arc,
+  .animate-bob-mascot {
+    animation: none !important;
+  }
+}
